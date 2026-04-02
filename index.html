@@ -56,18 +56,45 @@
                     라이더, 엔지니어, 크루치프, 스폰서…<br>
                     MotoGP 패독엔 생각보다 다양한 사람들이 있거든요.<br>
                     당신의 본성은 어디에 가장 가까울까요?<br>
-                    10개의 질문으로 확인해보세요.
+                    8개의 질문으로 확인해보세요.
                 </p>
                 <button onclick="startTest()" class="w-full md:w-auto px-8 py-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(220,38,38,0.4)]">
                     테스트 시작하기
                 </button>
+                
+                <div class="mt-8 pt-8 border-t border-zinc-800/50">
+                    <p class="text-xs text-zinc-500 mb-4">결과 미리보기</p>
+                    <div class="flex flex-wrap gap-2 justify-center md:justify-start">
+                        <button onclick="showDirectResult('R')" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-400 hover:text-white rounded-lg transition-colors">라이더</button>
+                        <button onclick="showDirectResult('E')" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-400 hover:text-white rounded-lg transition-colors">엔지니어</button>
+                        <button onclick="showDirectResult('M')" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-400 hover:text-white rounded-lg transition-colors">메카닉</button>
+                        <button onclick="showDirectResult('CC')" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-400 hover:text-white rounded-lg transition-colors">크루치프</button>
+                        <button onclick="showDirectResult('J')" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-400 hover:text-white rounded-lg transition-colors">미디어 기자</button>
+                        <button onclick="showDirectResult('S')" class="px-3 py-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs text-zinc-400 hover:text-white rounded-lg transition-colors">스폰서</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.5. 성별 선택 화면 (초기엔 숨김) -->
+            <div id="gender-screen" class="hidden fade-in w-full pb-12">
+                <h3 class="text-xl md:text-2xl font-bold mb-8 break-keep leading-relaxed text-center md:text-left">
+                    페르소나의 성별을 선택해주세요
+                </h3>
+                <div class="flex flex-col gap-3">
+                    <button onclick="selectGender('M')" class="w-full text-center p-4 md:p-5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-red-500 rounded-xl transition-all text-zinc-300 hover:text-white font-bold text-lg">
+                        남성
+                    </button>
+                    <button onclick="selectGender('F')" class="w-full text-center p-4 md:p-5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-red-500 rounded-xl transition-all text-zinc-300 hover:text-white font-bold text-lg">
+                        여성
+                    </button>
+                </div>
             </div>
 
             <!-- 2. 질문 화면 (초기엔 숨김) -->
             <div id="question-screen" class="hidden fade-in w-full pb-12">
                 <div class="mb-8">
                     <div class="flex justify-between text-xs text-zinc-500 font-bold mb-2">
-                        <span id="q-progress-text">Q 1 / 10</span>
+                        <span id="q-progress-text">Q 1 / 8</span>
                         <span>Crac.</span>
                     </div>
                     <div class="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
@@ -85,7 +112,10 @@
             </div>
 
             <!-- 3. 결과 화면 (초기엔 숨김) -->
-            <div id="result-screen" class="hidden fade-in w-full pb-24 md:pb-0">
+            <div id="result-screen" class="hidden fade-in w-full pb-24 md:pb-0 relative">
+                <button onclick="closeResult()" class="absolute top-0 right-0 p-2 text-zinc-500 hover:text-white transition-colors" aria-label="닫기">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
                 <p class="text-red-500 font-bold text-sm mb-2">테스트 결과</p>
                 <h2 id="result-title" class="text-3xl font-black mb-6 italic">결과 타이틀</h2>
                 
@@ -100,19 +130,18 @@
 
                 <div class="bg-zinc-900/50 rounded-xl p-5 mb-8">
                     <h4 class="font-bold text-sm text-zinc-400 mb-3">당신을 기다리는 크루들</h4>
-                    <div class="flex items-center gap-4">
-                        <!-- 캐릭터 프로필 썸네일 -->
-                        <img src="https://placehold.co/100x100/ef4444/ffffff?text=Adrian" alt="Adrian Solis" class="w-12 h-12 rounded-full border-2 border-red-500 object-cover">
-                        <div>
-                            <p id="adrian-quote" class="font-bold text-sm italic">"대사가 여기에 표시됩니다."</p>
-                            <p class="text-xs text-zinc-500 mt-1">아드리안 솔리스(Adrián Solís)와 대화하기</p>
+                    <div class="flex items-start gap-4">
+                        <!-- AI 캐릭터 프로필 썸네일 -->
+                        <img src="https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/webpro.webp" alt="Adrian Solis" class="w-12 h-12 rounded-full border-2 border-red-500 object-cover flex-shrink-0 mt-1">
+                        <div id="adrian-quote" class="text-sm">
+                            <!-- 대사가 여기에 표시됩니다. -->
                         </div>
                     </div>
                 </div>
 
                 <!-- 모바일에서는 하단 고정, PC에서는 일반 배치 -->
                 <div class="fixed bottom-0 left-0 w-full p-4 bg-gradient-to-t from-zinc-950 via-zinc-950 to-transparent md:relative md:p-0 md:bg-none z-50">
-                    <button onclick="location.reload()" class="w-full py-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition-all shadow-lg text-center block">
+                    <button onclick="closeResult()" class="w-full py-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition-all shadow-lg text-center block">
                         테스트 다시하기
                     </button>
                 </div>
@@ -122,163 +151,161 @@
     </div>
 
     <script>
-        // 심리테스트 데이터 (10문항)
+        // 심리테스트 데이터 (8문항)
         const questions = [
             {
                 q: "놀이공원에 갔다. 줄이 2시간인 롤러코스터가 눈앞에 있다. 나는?",
                 weight: 1,
                 options: [
-                    { text: "당연히 탄다. 저걸 안 타러 여기 왔나.", type: "R" },
-                    { text: "줄 빠르게 빠지는 방법부터 검색한다.", type: "E" },
-                    { text: "타는 사람들 표정 구경하는 것도 충분히 재미있다.", type: "J" },
-                    { text: "일행 중 무서워하는 사람 챙기면서 같이 탈지 말지 조율한다.", type: "CC" }
+                    { text: "기다리는 게 대수냐. 놀러 왔으면 당연히 타야지.", type: "R" },
+                    { text: "바로 폰 꺼내서 매직패스나 줄 빨리 빠지는 팁 검색함.", type: "E" },
+                    { text: "타는 건 귀찮고, 옆에서 사람들 소리 지르는 거 구경하는 게 더 꿀잼.", type: "J" },
+                    { text: "애들 눈치 쓱 보고 무서워하는 애 있으면 딴 거 탈지 의견 조율함.", type: "CC" }
                 ]
             },
             {
                 q: "밤새 공들인 프로젝트가 막판에 어이없이 날아갔다. 나는?",
                 weight: 1,
                 options: [
-                    { text: "열받아서 감정 주체가 안 된다. 일단 뭐라도 던진다.", type: "R" },
-                    { text: "화낼 시간도 아깝다. 바로 원인부터 찾는다.", type: "E" },
-                    { text: "이 실패를 어떻게 수습하고 다음 플랜으로 넘어갈지 머리를 굴린다.", type: "S" }
+                    { text: "일단 책상 한 번 치고 쌍욕부터 박음.", type: "R" },
+                    { text: "빡칠 시간도 아까움. 바로 복구 프로그램 돌리거나 백업본 찾음.", type: "E" },
+                    { text: "어떻게든 마감 기한 늘릴 변명거리나 대체할 방법부터 짱구 굴림.", type: "S" }
                 ]
             },
             {
                 q: "친구들과 여행 계획을 짠다. 나의 자연스러운 역할은?",
                 weight: 2, // 핵심 분기점 가중치
                 options: [
-                    { text: "'일단 가자! 가서 생각하면 되지.' 분위기 메이커.", type: "R" },
-                    { text: "이동 동선, 날씨, 예산까지 스프레드시트로 정리해오는 사람.", type: "E" },
-                    { text: "짐을 제일 꼼꼼하게 챙기고, 현지에서 실제 문제를 해결하는 사람.", type: "M" },
-                    { text: "모두의 의견을 듣고 최종 결정을 내리는 사람.", type: "CC" },
-                    { text: "사진 찍고, 여행 기록 남기고, 나중에 후기 올리는 사람.", type: "J" },
-                    { text: "숙소 예약, 할인 쿠폰, 카드 혜택까지 챙겨오는 사람.", type: "S" }
+                    { text: "\"야 일단 출발해.\" 무계획이 계획인 텐션 끌어올리는 애.", type: "R" },
+                    { text: "엑셀 켜서 분 단위 일정표랑 예산 싹 다 정리해서 공유하는 애.", type: "E" },
+                    { text: "계획보단 실전. 현지에서 문제 생기면 다 해결하고 상비약 챙겨주는 애.", type: "M" },
+                    { text: "단톡방에 던져진 의견들 취합해서 \"그럼 여기로 가자\" 하고 픽 정해주는 애.", type: "CC" },
+                    { text: "무조건 사진 건지는 게 목표. 핫플 검색하고 인스타 감성 숙소 찾는 애.", type: "J" },
+                    { text: "가성비 따지면서 숙소 할인 쿠폰, 카드 혜택 영혼까지 끌어모으는 애.", type: "S" }
                 ]
             },
             {
-                q: "누군가 대놓고 내 자존심을 긁는 도발을 했다. 나는?",
+                q: "단톡방에서 한 내 말이 악마의 편집 당해서 딴 곳에 굴러다니는 걸 발견했다. 내 반응은?",
                 weight: 1,
                 options: [
-                    { text: "빙빙 돌리는 거 딱 질색. 바로 면전에 대고 똑같이 들이받는다.", type: "R" },
-                    { text: "말싸움은 의미 없다. 압도적인 결과물로 조용히 짓눌러버린다.", type: "M" },
-                    { text: "겉으론 웃어넘기고, 뒤에서 그 사람의 평판을 조용히 깎아내린다.", type: "S" }
+                    { text: "당장 원본 캡처 들고 그 방 쳐들어가서 앞뒤 다 자른 자식 누구냐고 들이받음.", type: "R" },
+                    { text: "일단 참고, 누가 퍼뜨렸는지 찾아봄.", type: "E" },
+                    { text: "겉으론 타격 없는 척 하면서 역관광 해줄 타이밍을 노림.", type: "S" }
                 ]
             },
             {
-                q: "나는 어떤 칭찬을 들을 때 가장 기분이 좋은가?",
+                q: "들었을 때 가장 기분 좋은 칭찬은?",
                 weight: 2, // 핵심 분기점 가중치
                 options: [
-                    { text: "'너 진짜 대단하다, 어떻게 그걸 해냈어?'", type: "R" },
-                    { text: "'역시 네 분석은 틀린 적이 없어.'", type: "E" },
-                    { text: "'네 손을 거치면 뭐든 완벽해져.'", type: "M" },
-                    { text: "'네가 없었으면 팀이 무너졌을 거야.'", type: "CC" },
-                    { text: "'이거 네가 쓴 거야? 진짜 재밌게 읽었어.'", type: "J" },
-                    { text: "'이 판을 이렇게 키운 게 너잖아.'", type: "S" }
+                    { text: "\"와 너 진짜 또라이 같다.\" (최고의 극찬)", type: "R" },
+                    { text: "\"네 말이 맞네. 완전 깔끔하다.\"", type: "E" },
+                    { text: "\"이거 네가 한 거지? 확실히 디테일이 다르네.\"", type: "M" },
+                    { text: "\"솔직히 너 없었으면 이거 절대 못 끝냈어.\"", type: "CC" },
+                    { text: "\"야 네가 쓴 거 진짜 웃겨. 사람들 반응 장난 아니야.\"", type: "J" },
+                    { text: "\"너 진짜 판 잘 짠다. 눈치 엄청 빠르네.\"", type: "S" }
                 ]
             },
             {
-                q: "팀 프로젝트에서 내가 가장 참기 힘든 순간은?",
+                q: "회의 중 진짜 혈압 오르는 순간은?",
                 weight: 2, // 핵심 분기점 가중치
                 options: [
-                    { text: "내 감각과 아이디어가 묵살될 때.", type: "R" },
-                    { text: "비효율적인 방식을 고집하는 사람이 있을 때.", type: "E" },
-                    { text: "내가 밤새워 만든 결과물이 당연하게 여겨질 때.", type: "M" },
-                    { text: "아무도 결정을 안 내리고 우왕좌왕할 때.", type: "CC" },
-                    { text: "중요한 정보를 혼자 쥐고 공유 안 하는 사람이 있을 때.", type: "J" },
-                    { text: "전체 그림을 아무도 안 그리고 있을 때.", type: "S" }
+                    { text: "내 아이디어 무시하다가 다른 사람이 똑같은 말 하면 갑자기 \"오 좋은데요\" 할 때.", type: "R" },
+                    { text: "데이터 다 무시하고 \"원래 하던 대로 하자\"며 꼰대짓 할 때.", type: "E" },
+                    { text: "내가 밤새서 만든 자료 제대로 읽지도 않고 딴소리 할 때.", type: "M" },
+                    { text: "30분째 결론 없이 같은 말만 반복하고 있을 때.", type: "CC" },
+                    { text: "자기들끼리 이미 다 결정해 놓고 나한테는 통보만 할 때.", type: "J" },
+                    { text: "아무도 총대 안 메고 각자 핑계만 대면서 눈치 볼 때.", type: "S" }
                 ]
             },
             {
                 q: "극도로 긴장되는 순간, 내 몸이 먼저 반응하는 방식은?",
                 weight: 1,
                 options: [
-                    { text: "오히려 더 선명해진다. 긴장이 나를 깨운다.", type: "R" },
-                    { text: "머릿속으로 시뮬레이션을 돌린다. 경우의 수를 계산한다.", type: "E" },
-                    { text: "손이 먼저 움직인다. 할 수 있는 것부터 차근차근 한다.", type: "M" },
-                    { text: "주변 사람들 상태부터 확인한다. 내가 중심을 잡아야 한다.", type: "CC" }
+                    { text: "심장 뛰면서 오히려 아드레날린 빡 도는 느낌.", type: "R" },
+                    { text: "최악의 상황 가정하고 머릿속으로 플랜 B, 플랜 C 미친 듯이 돌림.", type: "E" },
+                    { text: "멘붕 올 틈이 어딨어. 당장 눈앞에 닥친 일부터 기계처럼 처리함.", type: "M" },
+                    { text: "나까지 털리면 끝이다. 심호흡하고 주변 애들 멘탈부터 잡음.", type: "CC" }
                 ]
             },
             {
                 q: "목표를 달성하고 열린 축하 파티에서 내 포지션은?",
                 weight: 1,
                 options: [
-                    { text: "무대 한가운데서 제일 시끄럽게 소리 지르며 즐긴다.", type: "R" },
-                    { text: "시끄러운 건 피곤하다. 친한 몇 명이랑 구석에서 이번 성과를 복기한다.", type: "E" },
-                    { text: "주인공들을 적당히 띄워주면서, 여기서 얻어갈 새 인맥을 재빠르게 물색한다.", type: "S" }
-                ]
-            },
-            {
-                q: "사람들이 나를 평가할 때 가장 자주 듣는 말은?",
-                weight: 1,
-                options: [
-                    { text: "'쟤는 미쳤지만 결과는 냄.'", type: "R" },
-                    { text: "'쟤 없으면 시스템이 안 돌아감.'", type: "M" },
-                    { text: "'쟤는 판을 읽는 타입임.'", type: "J" },
-                    { text: "'쟤가 없었으면 이 팀 진작에 망했음.'", type: "CC" }
-                ]
-            },
-            {
-                q: "내가 이 분야에 남기고 싶은 나의 전설은?",
-                weight: 2, // 핵심 분기점 가중치
-                options: [
-                    { text: "한계를 몰랐던 야생마. 아무도 나를 막지 못했다.", type: "R" },
-                    { text: "내가 만든 기술과 시스템이 업계의 표준이 됐다.", type: "E" },
-                    { text: "'이건 저 사람 손을 거쳤다'는 말이 곧 보증수표였다.", type: "M" },
-                    { text: "내가 키운 팀이 정상에 서는 것을 지켜봤다.", type: "CC" },
-                    { text: "내 콘텐츠 하나가 세상의 시선을 바꿨다.", type: "J" },
-                    { text: "판 전체를 쥐고 흔들었던 진짜 실세였다.", type: "S" }
+                    { text: "무조건 센터. 제일 시끄럽게 술잔 부딪히고 달림.", type: "R" },
+                    { text: "시끄러운 건 기 빨림. 친한 애들이랑 구석에서 조용히 노가리 깜.", type: "E" },
+                    { text: "분위기 적당히 맞추면서, 내 미래에 도움될 사람한테 인사부터 함.", type: "S" }
                 ]
             }
         ];
 
         const results = {
             R: {
-                title: "🏍️ 트랙 위의 통제 불능 무기, '라이더'",
+                title: "🏍️ '라이더'",
                 img: "https://placehold.co/600x400/18181b/ef4444?text=RIDER",
-                desc: "<strong>[캐릭터]</strong><br>복잡한 계산보다는 몸이 먼저 반응하는 타고난 행동대장입니다. 오직 본능적인 감각 하나로 한계를 돌파하는 야생마 같은 포지션이죠.<br><br><strong>[설정 활용법]</strong><br>어디로 튈지 모르는 예측 불허의 주인공 캐릭터로 활용하기 좋습니다. 무모한 행동으로 주변 사람들의 속을 뒤집어 놓으면서도, 막상 트랙 위에서는 폭발적인 에너지로 경이로운 결과를 만들어내어 결국 모두를 납득시키고 마는 매력적인 서사를 부여해 보세요.",
-                quote: "\"Joder, are brakes just for show? Stick right behind me. I'll show you how to really ride.\" (씨발, 브레이크는 폼으로 달았어? 내 뒤에 바짝 붙어. 제대로 달리는 법을 보여줄 테니까.)"
+                img_M: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/MR.jpg",
+                img_F: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/FR.jpg",
+                desc: "<strong>[패독 내 역할]</strong><br>MotoGP에서 실제로 바이크를 타고 레이스에 출전하는 선수입니다. 팀의 얼굴이자 결과를 직접 만들어내는 사람이에요. 모든 팀원이 이 한 명을 위해 움직입니다.<br><br><strong>[설정 활용법]</strong><br>라이더는 팀 안에서 가장 많은 걸 요구할 수 있는 동시에, 가장 많은 걸 책임져야 하는 포지션이에요. \"내가 못 타는 게 아니라 바이크가 문제\"라며 엔지니어한테 불만 쏟아내거나, 크루치프 지시 무시하고 혼자 판단해서 레이스 망치는 서사도 자연스럽게 먹힙니다. 반대로 팀 전체가 삐걱거릴 때 트랙 위 결과 하나로 분위기를 뒤집는 장면도 이 포지션만 가능해요.",
+                quote: "<span class=\"font-bold italic\">\"Joder, is your throttle jammed? Just follow my line, vale? I’ll show you how a champion really takes Turn 3.\"</span><br><span class=\"font-normal not-italic text-zinc-400 mt-1 block\">(씨발, 스로틀 고장났어? 그냥 내 라인이나 따라와, 알았지? 챔피언이 3번 코너를 어떻게 도는지 제대로 보여줄 테니까.)</span>"
             },
             E: {
-                title: "💻 피도 눈물도 없는 데이터 광신도, '엔지니어'",
+                title: "💻 '엔지니어'",
                 img: "https://placehold.co/600x400/18181b/3b82f6?text=ENGINEER",
-                desc: "<strong>[캐릭터]</strong><br>감정의 동요 없이 오직 텔레메트리 데이터와 명백한 팩트로만 승부하는 차가운 두뇌의 소유자입니다.<br><br><strong>[설정 활용법]</strong><br>팀 내 최고의 브레인이자 무자비한 팩트 폭격기로 설정해 보세요. 모두가 감정적으로 격해진 위기 상황에서도, 홀로 모니터를 뚫어져라 보며 0.1초를 단축할 계산에만 몰두하는 너드(Nerd) 속성을 주면 아주 매력적입니다. 기계와 숫자 앞에서는 지독한 완벽주의자지만, 타인의 감정이나 인간관계 앞에서는 한없이 뚝딱거리는 갭 차이를 주면 캐릭터성이 더욱 살아납니다.",
-                quote: "\"Turn 3 entry. The front is biting two tenths late. Pull the telemetry data again. Now.\" (3번 코너 진입. 프론트가 0.2초 늦게 먹히잖아. 텔레메트리 데이터 다시 뽑아와. 당장.)"
+                img_M: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/ME.jpg",
+                img_F: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/FE.jpg",
+                desc: "<strong>[패독 내 역할]</strong><br>레이스 중 라이더의 바이크에서 실시간으로 쏟아지는 수백 가지 데이터를 분석하고, 세팅 변경을 지시하는 기술 전문가입니다. 트랙 위엔 안 나가지만 성적에 미치는 영향은 라이더 못지않아요.<br><br><strong>[설정 활용법]</strong><br>\"0.1초를 왜 못 줄이냐\"며 라이더를 몰아붙이거나, 자기 데이터에 너무 확신한 나머지 라이더의 현장 감각을 무시해서 갈등이 생기는 구도가 잘 먹힙니다. 숫자로는 완벽한데 실제 레이스에서 예상 밖의 변수가 터졌을 때 어떻게 반응하는지가 이 캐릭터의 핵심 갈등 포인트예요.",
+                quote: "<span class=\"font-bold italic\">\"Madre mía, stop shoving those numbers in my face! The data says to brake early, but my hands say I can push more. Just fix the front grip, I'll do the rest.\"</span><br><span class=\"font-normal not-italic text-zinc-400 mt-1 block\">(미치겠네 진짜, 그놈의 숫자 좀 그만 들이밀어! 데이터는 일찍 브레이크를 잡으라고 하겠지만, 내 감각은 더 밀어붙일 수 있다고 하잖아. 프론트 그립이나 잡아놔, 나머진 내가 알아서 할 테니까.)</span>"
             },
             M: {
-                title: "🔧 조용히 다 고쳐놓는 마법의 손, '메카닉'",
+                title: "🔧 '메카닉'",
                 img: "https://placehold.co/600x400/18181b/f59e0b?text=MECHANIC",
-                desc: "<strong>[캐릭터]</strong><br>화려한 말솜씨 대신, 기름 묻은 거친 손과 완벽한 결과물로 자신의 가치를 증명하는 묵묵한 장인입니다.<br><br><strong>[설정 활용법]</strong><br>팀의 뒤를 든든하게 받쳐주는 과묵한 해결사 캐릭터로 제격입니다. 철없는 팀원들이 바이크를 형체도 없이 박살 내고 돌아와도, 깊은 한숨 한 번 내쉬고는 다음 세션 전까지 기어코 완벽하게 고쳐놓는 팀의 숨은 심장으로 묘사해 보세요. 스포트라이트를 받지는 못해도, 이 캐릭터가 없으면 팀 전체가 굴러가지 않는 필수 불가결한 존재입니다.",
-                quote: "\"Madre mía... You smashed the fairing again? Move aside, I'll somehow bring it back to life before the next session.\" (미치겠네 진짜... 또 카울을 다 박살내고 왔어? 비켜봐, 다음 세션 전까지 내가 어떻게든 살려놓을 테니까.)"
+                img_M: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/MM.jpg",
+                img_F: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/FM.jpg",
+                desc: "<strong>[패독 내 역할]</strong><br>바이크를 직접 조립하고 정비하는 사람입니다. 레이스 중 피트스톱에서 타이어 교체하고, 세션 사이에 엔지니어 지시대로 세팅을 바꾸는 것도 전부 메카닉 몫이에요. 말보다 손이 먼저 나가는 직업이에요.<br><br><strong>[설정 활용법]</strong><br>라이더가 바이크를 박살 내고 들어와도 묵묵히 고치고, 엔지니어가 무리한 세팅 변경을 요구해도 어떻게든 해내는 팀의 숨은 핵심입니다. 공은 라이더가 다 가져가고 본인은 뒤에서 기름 닦는 신세인데, 정작 이 사람 없으면 레이스 자체가 안 된다는 아이러니가 캐릭터 서사로 아주 잘 먹혀요.",
+                quote: "<span class=\"font-bold italic\">\"Lo siento, amigo. I pushed a bit too hard on Turn 5. Can you fix this mess before the next session? You're the only one I trust with my bike.\"</span><br><span class=\"font-normal not-italic text-zinc-400 mt-1 block\">(미안해, 친구. 5번 코너에서 좀 무리했어. 다음 세션 전까지 이 박살 난 것 좀 고쳐줄 수 있어? 내 바이크 믿고 맡길 사람은 너밖에 없잖아.)</span>"
             },
             CC: {
-                title: "🎧 미친 자들을 조련해야만 하는 극한직업 사령관, '크루치프'",
+                title: "🎧 '크루치프'",
                 img: "https://placehold.co/600x400/18181b/8b5cf6?text=CREW+CHIEF",
-                desc: "<strong>[캐릭터]</strong><br>앞뒤 안 재고 달리는 라이더와 예민함의 극치를 달리는 엔지니어들의 멱살을 쥐고 팀을 이끄는 실질적 리더이자 컨트롤 타워입니다.<br><br><strong>[설정 활용법]</strong><br>개성 강한 팀원들 사이에서 매일같이 치이고 스트레스에 시달리지만, 결정적인 순간에는 누구보다 냉정하게 판을 읽고 전략을 지시하는 사령관 포지션으로 굴려보세요. 조직이 흔들리고 위기에 처했을 때, 단호하게 무전기를 잡고 팀원들의 멘탈을 다잡아주는 든든한 리더의 서사를 부여하면 극의 긴장감과 무게감이 확 살아납니다.",
-                quote: "\"I know what I'm doing, vale. Don't question my tire strategy. You just focus on riding.\" (내가 알아서 해, 알았어? 내 타이어 전략에 토 달지 마. 넌 그냥 달리기나 해.)"
+                img_M: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/MCC.jpg",
+                img_F: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/FCC.jpg",
+                desc: "<strong>[패독 내 역할]</strong><br>레이스 내내 무전으로 라이더와 직접 소통하면서 타이어 교체 타이밍, 페이스 조절, 경쟁 라이더 정보를 실시간으로 전달하는 현장 지휘관입니다. 엔지니어와 라이더 사이의 통역사이기도 해요.<br><br><strong>[설정 활용법]</strong><br>데이터만 보는 엔지니어와 감각으로 달리는 라이더 사이에서 매번 중재해야 하는 포지션이라 갈등의 중심에 서기 딱 좋습니다. 라이더가 무전 씹고 혼자 판단하거나, 엔지니어가 현실성 없는 지시를 고집할 때 이 캐릭터가 어떻게 버티느냐가 드라마의 핵심이 될 수 있어요.",
+                quote: "<span class=\"font-bold italic\">\"Forget the team order. I'm taking the soft tire. If I burn it up, that's my problem. Just let me race, vale?\"</span><br><span class=\"font-normal not-italic text-zinc-400 mt-1 block\">(팀 오더는 집어치워. 난 소프트 타이어로 갈 거야. 타이어 다 태워 먹어도 내 알 바니까. 넌 그냥 내가 달리게 놔두기나 해, 알았어?)</span>"
             },
             J: {
-                title: "📸 판을 흔드는 트러블메이커, '미디어 기자'",
+                title: "📸 '미디어 기자'",
                 img: "https://placehold.co/600x400/18181b/ec4899?text=JOURNALIST",
-                desc: "<strong>[캐릭터]</strong><br>남들은 쉽게 보지 못하는 패독 뒷골목의 예민한 신경전과 감춰진 이면을 귀신같이 파헤치는 날카로운 관찰자입니다.<br><br><strong>[설정 활용법]</strong><br>정보력이 뛰어나고 눈치가 빠른 정보상이나, 아슬아슬하게 선을 넘나들며 어그로를 끄는 입체적인 캐릭터로 짜기 좋습니다. 대중의 시선이 쏠릴 타이밍을 정확히 꿰뚫어 보고, 라이더들의 멘탈을 흔드는 얄미운 도발을 툭툭 던지며 펜대 하나로 여론을 쥐락펴락하는 씬스틸러 포지션으로 활용해 보세요.",
-                quote: "\"No no no, I'm not sad. See? I'm smiling. Now, turn off that recorder and ask me a real question.\" (아니 아니, 나 안 슬퍼. 봐봐? 웃고 있잖아. 자, 이제 그 녹음기 끄고 진짜 질문을 해보시지?)"
+                img_M: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/MJ.jpg",
+                img_F: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/FJ.jpg",
+                desc: "<strong>[패독 내 역할]</strong><br>패독을 누비며 레이스 결과, 팀 내부 갈등, 라이더 인터뷰를 취재하는 저널리스트입니다. 팀 내부인은 아니지만 패독 안에서 가장 많은 정보를 쥐고 있는 경우가 많아요.<br><br><strong>[설정 활용법]</strong><br>팀 내부 사람들이 절대 공개 안 하려는 걸 어딘가에서 먼저 알아내거나, 인터뷰에서 아슬아슬한 질문을 던져 라이더 멘탈을 흔드는 장면이 자연스럽습니다. 팀 입장에선 잘 보여야 하는데 동시에 경계해야 하는 존재라, 캐릭터와 묘하게 긴장감 있는 관계를 만들기 쉬워요.",
+                quote: "<span class=\"font-bold italic\">\"No no no, I'm not sad. See? I'm smiling. Now, turn off that recorder and ask me a real question.\"</span><br><span class=\"font-normal not-italic text-zinc-400 mt-1 block\">(아니 아니, 나 안 슬퍼. 봐봐? 웃고 있잖아. 자, 이제 그 녹음기 끄고 진짜 질문을 해보시지?)</span>"
             },
             S: {
-                title: "💼 꼭대기에서 돈줄 쥐고 흔드는 흑막, '스폰서'",
+                title: "💼 '스폰서'",
                 img: "https://placehold.co/600x400/18181b/10b981?text=SPONSOR",
-                desc: "<strong>[캐릭터]</strong><br>직접 손에 피를 묻히지 않고, 서킷 밖에서 막대한 자본력으로 모든 것을 통제하는 진짜 실세입니다.<br><br><strong>[설정 활용법]</strong><br>여유가 넘치면서도 능글맞은 권력자나 물주 캐릭터로 설정해 보세요. 화려한 VIP 라운지에서 샴페인 잔을 기울이며 타인의 욕망을 체스판의 장기말처럼 다루는 모습을 묘사하면 좋습니다. 누가 우승하든 자신에게 떨어지는 이득만을 철저히 계산하고, 수틀리면 돈으로 판 자체를 엎어버리는 압도적이고도 재수 없는 매력을 부여하기에 완벽한 포지션입니다.",
-                quote: "\"They sent an offer? Joder, that's funny. Tell them to add another zero if they want their logo on my suit.\" (거기서 오퍼를 보냈다고? 존나 웃기네. 내 슈트에 로고 박고 싶으면 0 하나 더 붙여오라고 해.)"
+                img_M: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/MS.jpg",
+                img_F: "https://raw.githubusercontent.com/dimumu/DK/refs/heads/main/FS.jpg",
+                desc: "<strong>[패독 내 역할]</strong><br>팀 운영 자금을 대는 기업이나 개인 투자자입니다. 직접 레이스에 관여하지 않지만, 돈줄을 쥐고 있다는 이유만으로 팀의 모든 의사결정에 영향을 미칠 수 있어요.<br><br><strong>[설정 활용법]</strong><br>성적이 나쁘면 계약 끊겠다고 압박하거나, 마음에 드는 라이더를 밀어달라고 팀에 요구하는 등 트랙 밖에서 판을 흔드는 역할에 딱 맞습니다. 직접 손 안 대고도 팀 전체를 쥐고 흔들 수 있다는 게 이 포지션의 핵심이고, 다른 인원들 입장에선 비위를 맞춰야 하는 동시에 가장 경계해야 하는 존재예요.",
+                quote: "<span class=\"font-bold italic\">\"You brought this offer? Joder, that's funny. Tell them to add another zero if you want my time. I'm here to race, not to smile for your cameras.\"</span><br><span class=\"font-normal not-italic text-zinc-400 mt-1 block\">(이딴 오퍼를 가져왔다고? 존나 웃기네. 내 시간을 뺏고 싶으면 0 하나 더 붙여오라고 해. 난 레이스 하러 온 거지, 당신들 카메라 앞에서 웃어주러 온 게 아니니까.)</span>"
             }
         };
 
         let currentStep = 0;
         let scores = { R: 0, E: 0, M: 0, CC: 0, J: 0, S: 0 };
+        let selectedGender = 'M';
 
         const introScreen = document.getElementById('intro-screen');
+        const genderScreen = document.getElementById('gender-screen');
         const questionScreen = document.getElementById('question-screen');
         const resultScreen = document.getElementById('result-screen');
         
         function startTest() {
             introScreen.classList.add('hidden');
+            genderScreen.classList.remove('hidden');
+        }
+
+        function selectGender(gender) {
+            selectedGender = gender;
+            genderScreen.classList.add('hidden');
             questionScreen.classList.remove('hidden');
             renderQuestion();
         }
@@ -336,11 +363,38 @@
                 }
             }
 
-            const resultData = results[maxType];
+            renderResultData(maxType, false);
+        }
+
+        function showDirectResult(type) {
+            introScreen.classList.add('hidden');
+            questionScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            renderResultData(type, true);
+        }
+
+        function renderResultData(type, isPreview = false) {
+            const resultData = results[type];
             document.getElementById('result-title').innerText = resultData.title;
-            document.getElementById('result-image').src = resultData.img;
+            
+            let imageSrc = resultData.img;
+            if (!isPreview) {
+                if (selectedGender === 'M' && resultData.img_M) imageSrc = resultData.img_M;
+                if (selectedGender === 'F' && resultData.img_F) imageSrc = resultData.img_F;
+            }
+            
+            document.getElementById('result-image').src = imageSrc;
             document.getElementById('result-desc').innerHTML = resultData.desc;
-            document.getElementById('adrian-quote').innerText = resultData.quote;
+            document.getElementById('adrian-quote').innerHTML = resultData.quote;
+        }
+
+        function closeResult() {
+            resultScreen.classList.add('hidden');
+            introScreen.classList.remove('hidden');
+            // 상태 초기화
+            currentStep = 0;
+            scores = { R: 0, E: 0, M: 0, CC: 0, J: 0, S: 0 };
+            selectedGender = 'M';
         }
     </script>
 </body>
